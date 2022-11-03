@@ -1,0 +1,3 @@
+
+- name: deploy bash script to install and setup postgresql
+  script: "files/setup_pgsql.sh"

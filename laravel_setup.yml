@@ -1,0 +1,33 @@
+---
+- name: Setup Laravel Application
+  hosts: all
+  remote_user: root
+  become: yes
+  vars_files:
+    - vars/setup_vars.yml
+    - vars/deploy_vars.yml
+
+  tasks:
+  - name: setup server
+    import_tasks: tasks/setup_server.yml
+
+  - name: deploy laravel
+    import_tasks: tasks/deploy_laravel.yml
+
+  - name: encrypt ssl
+    import_tasks: tasks/encryptssl.yml
+    ignore_errors: yes
+
+  - name: install and setup postgresql with bash script
+    import_tasks: tasks/install-and-setup-pgsql.yml
+
+  handlers:
+  - name: restart ssh
+    service:
+      name: ssh
+      state: restarted
+
+  - name: reload apache
+    service:
+      name: apache2
+      state: reloaded

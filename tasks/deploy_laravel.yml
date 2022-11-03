@@ -1,0 +1,81 @@
+  - name: update apt
+    apt:
+      update_cache: yes
+    
+  - name: set timezone to {{ timezone }}
+    timezone:
+      name: "{{ timezone }}"
+
+  - name: install requirements
+    apt: name={{ item }} state=latest update_cache=yes
+    loop: ['apt-transport-https', 'gnupg2', 'ca-certificates', 'apache2', 'software-properties-common', 'wget', 'git', 'vim']
+
+  - name: add php repo to repo list
+    apt_repository:
+      repo: ppa:ondrej/php
+      state: present
+    ignore_errors: yes
+
+  - name: install laravel dependencies
+    apt: name={{ item }} state=latest update_cache=yes
+    loop: ['libapache2-mod-php', 'php', 'php-common', 'php-xml', 'php-gd', 'php8.1-opcache', 'php-mbstring', 'php-tokenizer', 'php-json', 'php-bcmath', 'php-zip', 'unzip', 'curl', 'php-curl', 'zip', 'php-pgsql', 'mysql-server', 'mysql-client', 'php-mysql', 'python3-mysqldb']
+    
+  - name: install and setup mysql
+    import_tasks: setup_mysql.yml     
+
+  - name: set ufw to allow mysql
+    ufw:
+      state: enabled
+      rule: allow
+      port: '3306'
+
+  - name: replace default php.ini file
+    template:
+      src: "files/php.ini"
+      dest: /etc/php/8.1/apache2/php.ini
+
+  - name: install and setup composer
+    shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+    args:
+      warn: false
+    
+  - name: clone laravel repo
+    git:
+      repo: "{{ repo_link }}"
+      dest: "{{ http_path }}"
+    ignore_errors: yes
+
+  - name: change ownership
+    file:
+      path: "{{ http_path }}"
+      owner: "{{ http_owner }}"
+      group: "{{ http_owner }}"
+      recurse: yes
+      force: yes
+
+  - name: install laravel with composer
+    shell: cd {{ http_path }} && composer create-project --no-interaction
+
+  - name: configure apache for laravel
+    template:
+      src: "files/laravel.conf.j2"
+      dest: /etc/apache2/sites-available/{{ http_conf }}
+
+  - name: enable laravel.conf site
+    shell: a2enmod rewrite && a2dissite 000-default.conf && a2ensite {{ http_conf }} && systemctl reload apache2
+
+  - name: configure the .env file
+    template:
+      src: "files/.env.j2"
+      dest: "{{ http_path }}/.env"
+
+  - name: seed the app's database
+    shell: cd {{ http_path }} && sudo php artisan migrate --seed
+    ignore_errors: yes
+
+  - name: configure apache for laravel
+    template:
+      src: "files/web.php"
+      dest: "{{ http_path }}/routes/web.php"
+    notify: reload apache 
+

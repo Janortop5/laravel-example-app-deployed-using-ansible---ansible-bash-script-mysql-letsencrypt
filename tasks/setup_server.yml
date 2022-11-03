@@ -1,0 +1,46 @@
+  - name: create user and grant user sudo access
+    user:
+      name: "{{ new_user }}"
+      shell: "{{ new_user_shell }}"
+      group: "{{ new_user_group }}"
+      generate_ssh_key: yes
+      ssh_key_file: .ssh/id_rsa
+
+  - name: create authorized_keys file
+    file:
+      path: /home/{{ new_user }}/.ssh/authorized_keys
+      state: touch
+      owner: "{{ new_user }}"
+      mode: 0600
+
+  - name: add public_key to authorized_keys
+    shell: grep -qF -- "{{ public_key }}" "/home/{{ new_user }}/.ssh/authorized_keys" || echo "{{ public_key }}" | sudo tee -a "/home/{{ new_user }}/.ssh/authorized_keys"
+
+  - name: disable password authentication
+    shell: sed -i "s/#PasswordAuthentication no/PasswordAuthentication no/g" /etc/ssh/sshd_config && grep -qF -- "PasswordAuthentication no" "/etc/ssh/sshd_config" || echo "PasswordAuthentication no" | sudo tee -a "/etc/ssh/sshd_config"
+    args:
+      warn: false
+
+  - name: disable remote root login
+    shell: sed -i "s/PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config && grep -qF -- "PermitRootLogin no" "/etc/ssh/sshd_config" || echo "PermitRootLogin no" | sudo tee -a "/etc/ssh/sshd_config"
+    args:
+       warn: false 
+
+  - name: enable 'no password' for sudo users
+    shell: grep -qF -- "%sudo  ALL=(ALL:ALL) NOPASSWD:ALL" "/etc/sudoers" || echo "%sudo  ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a "/etc/sudoers"
+    notify: restart ssh
+
+  - name: install ufw and apache2
+    apt: 
+      name: "{{ item }}"
+      state: latest
+      update_cache: yes
+    loop: ['ufw', 'apache2']
+
+  - name: enable ufw and allow OpenSSH and 'Apache FUll'
+    ufw:
+      state: enabled
+      rule: allow
+      name: "{{ item }}"
+    loop: ['OpenSSH', 'Apache Full']
+

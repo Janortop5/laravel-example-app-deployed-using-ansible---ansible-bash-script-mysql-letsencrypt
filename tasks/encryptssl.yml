@@ -1,0 +1,29 @@
+  - name: install snapd with apt
+    apt:
+      name: snapd
+      state: latest
+      update_cache: yes
+
+  - name: install core with snap
+    snap:
+      name: core
+      state: present
+
+  - name: run command to refresh core
+    shell: snap refresh core
+
+  - name: install certbot tool
+    snap:
+      name: certbot
+      classic: yes
+
+  - name: configure certbot to be executable as a command
+    file:
+      src: /snap/bin/certbot 
+      dest: /usr/bin/certbot
+      state: link
+    ignore_errors: yes
+
+  - name: install your certificates
+    shell: certbot --non-interactive --apache --agree-tos --redirect -m {{ email }} -d {{ domain }} -d www.{{ domain }}
+    ignore_errors: yes

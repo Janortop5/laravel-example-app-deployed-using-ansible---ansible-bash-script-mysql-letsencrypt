@@ -1,0 +1,50 @@
+
+  - name: install mysql-server and python3-mysqldb
+    apt:
+      name: "{{ item }}"
+      state: latest
+    loop: ['mysql-server', 'python3-mysqldb']
+
+  - name: set mysql root password
+    mysql_user:
+      login_host: 'localhost'
+      login_user: 'root'
+      login_password: "{{ mysql_root_password }}"
+      name: 'root'
+      password: '{{ mysql_root_password }}'
+      state: present
+
+  - name: Create a new database with name {{ mysql_db }}
+    mysql_db:
+      login_host: 'localhost'
+      login_user: 'root'
+      login_password: "{{ mysql_root_password }}"
+      name: "{{ mysql_db }}"
+      state: present
+
+  - name: Remove all the MySQL Database
+    mysql_db:
+      name: test
+      state: absent
+      login_host: 'localhost'
+      login_user: 'root'
+      login_password: "{{ mysql_root_password }}"
+
+  - name: Remove all anonymous user accounts
+    mysql_user:
+      name: ''
+      host_all: yes
+      state: absent
+      login_host: 'localhost'
+      login_user: 'root'
+      login_password: "{{ mysql_root_password }}"
+
+  - name: Create database user '{{ mysql_user }}' with all database privileges and 'WITH GRANT OPTION'
+    mysql_user:
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_user_password }}"
+      priv: '*.*:ALL,GRANT'
+      state: present
+      login_host: 'localhost'
+      login_user: 'root'
+      login_password: "{{ mysql_root_password }}"

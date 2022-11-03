@@ -1,0 +1,5 @@
+---
+new_user: "ansible"
+new_user_shell: "/usr/bin/bash"
+new_user_group: "sudo"
+public_key: ""
