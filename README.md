@@ -21,16 +21,16 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - install laravel dependencies
 - install and setup mysql
 - install and setup composer
-- clone the specified (laravel) repo and sets appropriate ownership and permissions
+- clone the specified (laravel) repo and set appropriate ownership and permissions
 - configure apache for laravel
-- deploy a bash script to install and setup postgresql
+- configure the .env file
 - seed the application
 
 ### tasks in encryptssl.yml 
 - install snapd with apt
 - install and refresh core with snap
 - install and setup certbot tool
-- install certificates with the specified email and domain
+- install your certificates with the specified email and domain
 
 ### tasks in install-and-setup-pgsql.yml
 - deploy bash script to install and setup postgresql
@@ -45,8 +45,8 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 ### inventory file
 the `hosts` file serves as our `inventory file` 
 ```
-'ansible_user' and 'remote_user' is set to root, you can change this depending on your case.
-preferably a user with sudo rights.
+'ansible_user' and 'remote_user' is set to root, you can change this depending on your case,
+preferably to a user with sudo rights.
 ```
 
 ### Environment variables
