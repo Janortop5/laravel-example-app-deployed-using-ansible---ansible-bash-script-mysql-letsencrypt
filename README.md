@@ -50,6 +50,14 @@ and the subsequent playbooks as the specified new user
 ```
 
 ### Environment variables
+Define `values` for the following `variables` in deploy_vars.yml:
+```
+• mysql_user_password • mysql_root_password
+```
+for `variables` in deploy_vars.yml
+```
+• public_key
+```
 variables that can be defined in deploy_vars.yml:
 ```
 - http_port - http_conf - http_path - http_owner - domain 
