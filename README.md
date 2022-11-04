@@ -45,7 +45,7 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 ### inventory file
 the `hosts` file serves as our `inventory file` 
 ```
-'ansible_user' and 'remote_user' is set to root, you can change this depending on your case,
+place ip address in file, 'ansible_user' and 'remote_user' is set to root, you can change this depending on your case,
 preferably to a user with sudo rights.
 ```
 
