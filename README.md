@@ -13,7 +13,7 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - Create a new database with name {{ mysql_db }}
 - Remove all the MySQL Database
 - Remove all anonymous user accounts
-- Create database user '{{ mysql_user }}' with all database privileges and 'WITH GRANT OPTION'
+- Create database user {{ mysql_user }} with all database privileges and 'WITH GRANT OPTION'
 
 ### tasks in deploy_laravel.yml 
 - set the timezone on the target machine to a specified timezone
