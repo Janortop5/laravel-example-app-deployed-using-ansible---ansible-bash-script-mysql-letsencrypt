@@ -7,6 +7,14 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - disable remote root login, enable 'no password' for sudo users and disable password authentication
 - install ufw and allow 'OpenSSH' and 'WWW Full'
 
+## tasks in setup_mysql.yml
+- install mysql-server and python3-mysqldb
+- set mysql root password
+- Create a new database with name {{ mysql_db }}
+- Remove all the MySQL Database
+- Remove all anonymous user accounts
+- Create database user '{{ mysql_user }}' with all database privileges and 'WITH GRANT OPTION'
+
 ## tasks in deploy_laravel.yml 
 - set the timezone on the target machine to a specified timezone
 - install requirements for the deployment and add repos to repo lists
@@ -17,14 +25,6 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - configure apache for laravel
 - deploy a bash script to install and setup postgresql
 - seed the application
-
-## tasks in setup_mysql.yml
-- install mysql-server and python3-mysqldb
-- set mysql root password
-- Create a new database with name {{ mysql_db }}
-- Remove all the MySQL Database
-- Remove all anonymous user accounts
-- Create database user '{{ mysql_user }}' with all database privileges and 'WITH GRANT OPTION'
 
 ## tasks in encryptssl.yml 
 - install snapd with apt
