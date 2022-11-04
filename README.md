@@ -5,7 +5,7 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - Create a specified new user with sudo access and generate ssh keys
 - Create an authorized_keys file in the .ssh directory and echo to file a specified public key
 - disable remote root login, enable 'no password' for sudo users and disable password authentication
-- install ufw and allow 'OpenSSH' and 'WWW Full'
+- install ufw and allow 'OpenSSH' and 'Apache Full'
 
 ### tasks in setup_mysql.yml
 - install mysql-server and python3-mysqldb
