@@ -50,7 +50,7 @@ and the subsequent playbooks as the specified new user
 ```
 
 ### Environment variables
-Define `values` for the following `variables` in deploy_vars.yml:
+Set `values` for the following `variables` in deploy_vars.yml:
 ```
 • mysql_user_password • mysql_root_password
 ```
@@ -58,14 +58,14 @@ for `variables` in deploy_vars.yml
 ```
 • public_key
 ```
-variables that can be defined in deploy_vars.yml:
+other variables that can be defined in deploy_vars.yml:
 ```
-- http_port - http_conf - http_path - http_owner - domain 
-- timezone - repo link - mysql_db - mysql_user - mysql_password
+• http_port • http_conf • http_path • http_owner • domain 
+• timezone • repo link • mysql_db
 ```
-variables that can be defined in setup_vars.yml:
+other variables that can be defined in setup_vars.yml:
 ```
-- new_user - new_user_shell - new_user_group - public_key
+• new_user • new_user_shell • new_user_group
 ```
 
 ### Setup
