@@ -52,15 +52,15 @@ preferably a user with sudo rights.
 ### Environment variables
 Set values for the following `variables` in deploy_vars.yml:
 ```
-• mysql_user_password • mysql_root_password
+• mysql_user_password • mysql_root_password • domain • email
 ```
-for `variables` in deploy_vars.yml
+for `variables` in deploy_vars.yml:
 ```
 • public_key
 ```
 other variables that can be defined in deploy_vars.yml:
 ```
-• http_port • http_conf • http_path • http_owner • domain 
+• http_port • http_conf • http_path • http_owner
 • timezone • repo link • mysql_db
 ```
 other variables that can be defined in setup_vars.yml:
@@ -68,16 +68,12 @@ other variables that can be defined in setup_vars.yml:
 • new_user • new_user_shell • new_user_group
 ```
 
-### Setup
+### .env
 ```
-ansible-playbook setup_server.yml -i hosts
+rename '.env.example.j2' ---> '.env.j2'
 ```
 ### Deploy
 ```
-ansible-playbook deploy_laravel.yml -i hosts
+ansible-playbook laravel_setup.yml -i hosts
 ```
 
-### Encrypt SSL
-```
-ansible-playbook encryptssl.yml -i hosts
-```
