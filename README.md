@@ -69,6 +69,7 @@ other variables that can be defined in vars/setup_vars.yml:
 ```
 
 ### .env
+in files/
 ```
 rename '.env.example.j2' ---> '.env.j2'
 ```
