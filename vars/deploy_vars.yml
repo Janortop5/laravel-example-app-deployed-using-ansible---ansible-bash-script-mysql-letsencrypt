@@ -1,5 +1,5 @@
 ---
-http_port: "443"
+http_port: "80"
 http_conf: "laravel.conf"
 http_path: "/var/www/laravel-realworld-example-app"
 domain: "testexampleapp.com"
