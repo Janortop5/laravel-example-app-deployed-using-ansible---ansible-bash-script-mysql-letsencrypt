@@ -68,7 +68,10 @@ other variables that can be defined in vars/setup_vars.yml:
 ```
 • new_user • new_user_shell • new_user_group
 ```
-
+### setup_pgsql.sh
+```
+password for user postgres can be set in files/setup_pgsql.sh
+```
 ### .env
 in files/
 ```
