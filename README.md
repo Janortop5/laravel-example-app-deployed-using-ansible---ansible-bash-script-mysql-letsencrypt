@@ -20,6 +20,7 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - install requirements for the deployment and add repos to repo lists
 - install laravel dependencies
 - install and setup mysql
+- set ufw to allow mysql
 - install and setup composer
 - clone the specified (laravel) repo and set appropriate ownership and permissions
 - configure apache for laravel
