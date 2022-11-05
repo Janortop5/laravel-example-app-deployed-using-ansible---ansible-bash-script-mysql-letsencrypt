@@ -69,6 +69,11 @@
       src: "files/.env.j2"
       dest: "{{ http_path }}/.env"
 
+  - name: configure .htaccess file
+    template:
+      src: "files/.htaccess"
+      dest: "{{ http_path }}/.htaccess"
+
   - name: seed the app's database
     shell: cd {{ http_path }} && sudo php artisan migrate --seed
     ignore_errors: yes

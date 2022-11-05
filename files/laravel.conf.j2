@@ -1,6 +1,8 @@
 <VirtualHost *:{{ http_port }}>
     ServerAdmin admin@{{ domain }}
-    ServerName www.{{ domain }}
+    ServerName {{ domain }}
+    ServerAlias www.{{ domain }}
+
     DocumentRoot {{ http_path }}/public/
 
     <Directory {{ http_path }}/public/>

@@ -25,5 +25,5 @@
     ignore_errors: yes
 
   - name: install your certificates
-    shell: certbot --non-interactive --apache --agree-tos --redirect -m {{ email }} -d {{ domain }} -d www.{{ domain }}
+    shell: certbot --apache --agree-tos --no-eff-email --redirect -m {{ email }} -d {{ domain }} -d www.{{ domain }}
     ignore_errors: yes
