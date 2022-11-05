@@ -24,6 +24,7 @@ link to the laravel app repo: https://github.com/f1amy/laravel-realworld-example
 - clone the specified (laravel) repo and set appropriate ownership and permissions
 - configure apache for laravel
 - configure the .env file
+- configure .htaccess file
 - seed the application
 
 ### tasks in encryptssl.yml 
