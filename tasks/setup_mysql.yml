@@ -13,6 +13,7 @@
       name: 'root'
       password: '{{ mysql_root_password }}'
       state: present
+      ignore_errors: yes
 
   - name: Create a new database with name {{ mysql_db }}
     mysql_db:
